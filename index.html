@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Neural Network in Google Sheets</title>
+    <link rel="stylesheet" href="https://use.typekit.net/wgd4bgk.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- <link rel="icon" type="image/png" href="website/icon.png"> -->
+    <link rel="stylesheet" href="website/styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h2>A Neural Network in Google Sheets</h2>
+        <h4>Building a Sheets-based computer vision model to recognize hand-written digits</h4>
+        <hr style="margin: 15px auto;">
+        <h3>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
+                Nikhil Chinchalkar</a></h3>
+        <p>No Generative AI was used in the making of this project.</p>
+        <p>June 28, 2026</p>
+    </div>
+
+    <div class="big-image-container">
+        <div class="iframe-container" style="height: 700px;">
+            <iframe height="100%" width="100%" frameborder="0"
+                src="https://docs.google.com/spreadsheets/d/1NK-wLKCvSAkep09oZJvkwyFGUJjmwW1h7lIAR-iWYNM/edit?usp=sharing&amp;rm=full">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="essay">
+        <h3>I trained a neural network entirely in Google Sheets</h3>
+
+        <p class="end-paragraph">
+            Some of the most ingenious ideas come from taking something that exists in one medium, and forcibly
+            transforming it into another---like reproducing an expensive dish on a tight budget or walking around a city
+            without a map. The same principle applies here: I’m taking something that exists on the frontier of data
+            science---neural networks---and recreating it in an environment one step above doing math by hand. Along the
+            way, I’m forced to find creative workarounds to problems I didn’t see coming, all the while strengthening my
+            understanding of (and hopefully yours too) both Sheets and machine learning.
+        </p>
+
+
+        <h3>70,000 images, 614,656 pixels, and 29 years</h3>
+
+        <p>The model is fit on the MNIST dataset, consisting of 70,000 grayscale 28\(\times\)28 images of hand-written
+            digits (0
+            through 9), each with a corresponding label, which my model tries to predict.
+        </p>
+
+
+    </div>
+
+    <div class="big-image-container">
+        <div class="iframe-container" style="height: 600px;">
+            <iframe height="100%" width="100%" frameborder="0"
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=570922666&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
+            </iframe>
+        </div>
+
+        <p style="margin-top: 10px;">
+            Select images from the MNIST dataset, displayed in Google Sheets with conditional formatting.
+        </p>
+    </div>
+
+    <div class="essay">
+        <p>Training a classifier on this dataset is nothing new---MNIST is a staple in the
+            world of computer vision, and
+            has been around since 1998. What’s not new is the implementation.
+        </p>
+
+        <p>
+            Googling “training a neural network in Google Sheets” gets you a few results that appear to do something
+            similar to what I’m doing, but differ in two key ways. One, I’m not importing the model from another source
+            (like PyTorch or TensorFlow), using any code within Sheets (like Google Apps Script), or Add-Ons (like
+            OpenSolver). Solutions that “train” neural networks in Sheets usually end up using one of these shortcuts,
+            which solve some of the fundamental problems with trying to train a model in Sheets, but take away from the
+            point of creating the network in Sheets in the first place.
+        </p>
+
+        <p>
+            You might wonder about potentially using Excel instead of Sheets. While this task could certainly be
+            performed in Excel, it is a much more powerful software. With the goal of this project being to train a
+            model in the most primitive of mediums, I opt to use Sheets.
+        </p>
+
+        <p>
+            Of the remaining online solutions that don’t rely on third-party applications, most of them train models
+            that are extremely simple, with relatively few neurons or training iterations, and solve problems that are
+            fairly basic. While it is true that these solutions do indeed train a model entirely in Sheets, they fail to
+            push the frontier of what’s possible within Sheets.
+        </p>
+
+        <p>
+            My model is different: it is a fully-connected multi-layer perceptron (MLP), that has 784 input neurons (one
+            for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
+            ReLU
+            activation function, and finally 10 output nodes, one for each digit, that represent how likely the input is
+            a particular label. In an abbreviated form, this model is a 784-128-10 MLP.
+        </p>
+
+        <h3>One step forward, one step back</h3>
+
+        <p>
+            As a high-level overview of what this model does, each hidden layer node (128 total), “learns” 784 weight
+            values, one for each of the 784 input nodes, or each grayscale pixel value in the original image. Each of
+            those 784 weights are multiplied by their corresponding pixel and added together before a “learned” bias
+            term is added to the sum. If it makes it easier to see in linear algebra terms, this can be represented by
+            the formula \(XW_1 + b_1\), where X is a singular input image matrix (size 1\(\times\)784), \(W_1\) is the
+            weight matrix
+            (size 784\(\times\)128), and \(b_1\) is the bias term (for each of the 128 hidden layer neurons).
+        </p>
+
+        <p>
+            Before continuing the process in the next layer, however, the ReLU activation function takes each of the 128
+            sums (or equivalently, the \(XW_1 + b_1\) result) and replaces all the negative sums with 0, leaving the
+            positive sums as is. The main purpose of this function is to allow the network to learn non-linear, complex
+            patterns, since the ReLU is itself non-linear.
+        </p>
+
+        <p>
+            The final output layer (10 nodes) repeats this operation, but without the ReLU activation function at the
+            end. That is, each of the 10 nodes “learns” 128 weight values, one for each of the 128 hidden layer outputs,
+            and multiplies those weight values pairwise with the corresponding hidden layer results, before adding in a
+            “learned” bias term. This entire process can be summarized with the formula \(\text{ReLU}(XW_1 + b_1)W_2 +
+            b_2\), the
+            result of which represents the 10 outputs (one for each digit) of the model, called the logits. To turn
+            those logits into probabilities, I use a softmax function.
+        </p>
+
+        <div class="image-container">
+            <div class="iframe-container" style="height: 600px;">
+                <iframe height="100%" width="100%" frameborder="0"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=689800076&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
+                </iframe>
+            </div>
+
+            <p style="margin-top: 10px;">
+                A visualization of the model, with the first two layers at 1:16 scale. Each connection represents a
+                multiplication of a weight and input value.
+            </p>
+        </div>
+
+        <p>
+            Up to this point, these calculations are what’s known as a “forward pass,” which just calculates the result
+            of the model. It can perform the task of classification by taking in an image and giving a probability of
+            each digit, but that probability distribution isn’t necessarily good. For the model to “learn,” it needs to
+            train each of the “learnable” weight values (of which there are \(784\cdot 128+128+128 \cdot 10+10 =
+            101,770\)) to use in
+            the forward pass calculation.
+        </p>
+
+        <p>
+            This “learning” is called back propagation, and involves quantifying how wrong the forward pass was, then
+            changing all of the weights, or parameters, to make the model not as wrong. The quantification is done via a
+            loss function, in this case cross entropy loss, and the changing of weights is done by taking the derivative
+            of the loss function with respect to each parameter. The derivative shows how adjusting each parameter would
+            change the loss, so to update weights, I just “step” each parameter in the direction that appears to lower
+            the loss (or the “wrongness”).
+        </p>
+
+        <p>
+            While the math behind the network isn’t too important for understanding the purpose of this project, it
+            helps you appreciate the number of computations that underlie such a classifier.
+        </p>
+
+        <p>
+            After writing out the math for the forward pass, and deriving the steps required for back propagation, I can
+            then translate that math into Python code, utilizing the NumPy package for each of the calculations.
+        </p>
+
+        <div class="image-container">
+            <pre style="margin: 0; border: 2px solid black;"><code class="language-python">train_size = 4000
+X = train_data.data[:train_size].numpy()/255 # make values range from [0,1]
+y = train_data.targets[:train_size].numpy()
+k = 10 # number of classes
+d = 784 # dimensionality of the input
+h = 128 # size of hidden layer
+step_size = 0.1 # proportional to learning rate
+
+w = np.genfromtxt('weights.csv') # same as sheets
+b1 = w[128*784:128*784+128] # layer 1 biases
+b2 = w[-10:] # layer 2 biases 
+W1 = w[:128*784].reshape(h,d).T # layer 1 weights
+W2 = w[128*784+128:-10].reshape(k,h).T # layer 2 weights
+
+epochs = 7
+for t in range(epochs):
+    n = len(X) # number of points
+    X_epoch = X.reshape(n, -1) # (n, 1, 28, 28) => (n, 784)
+    hL = np.maximum(0, X_epoch @ W1 + b1) # (n, d) @ (d, h): (n, h)
+    logits = hL @ W2 + b2 # (n, h) @ (h, k): (n, k)
+
+    probs = np.exp(logits) # (n, k)
+    probs /= probs.sum(1, keepdims=True) # (n, k)
+
+    neg_log_probs = -np.log(probs[range(n),y]) # (n,)
+    loss = neg_log_probs.sum() / n # (1)
+    
+    dlogits = probs # (n, k)
+    dlogits[range(n),y] -= 1 # (n, k)
+
+    db2 = dlogits.sum(0) # (n, k) => (k)
+    dW2 = hL.T @ dlogits # (n, h).T @ (n, k): (h, k) 
+
+    dhL = dlogits @ W2.T # (n, k) @ (h, k).T: (n, h) 
+    dhL[hL <= 0] = 0 # (n, h)
+    dW1 = X_epoch.T @ dhL # (n, d).T @ (n, h): (d, h)
+    db1 = dhL.sum(0) # (n, h) => (h)
+
+    W1  -= step_size * dW1 / n # (d, h)
+    b1  -= step_size * db1 / n # (h)
+    W2 -= step_size * dW2 / n # (h, k)
+    b2 -= step_size * db2 / n # (k)
+    
+    train_preds = model(b1, W1, b2, W2, X_epoch.reshape(n, 784)).argmax(1)
+    train_acc = (train_preds == y).sum() / n
+    print('Epoch:', t+1,'Train Accuracy:', train_acc, 'Train Loss:', loss)</code></pre>
+
+            <p style="margin-top: 10px;">
+                A slightly simplified version of the actual NumPy code for model training, adapted from Stanford’s
+                <a href="https://cs231n.github.io/neural-networks-case-study/" target="_blank">CS231n</a>.
+            </p>
+        </div>
+
+        <p class="end-paragraph">From here, all that’s left to do is convert each line of NumPy into cells in Sheets.
+        </p>
+
+        <h3>A single calculation in Sheets</h3>
+
+        <p>
+            The first major hurdle comes from storing the data itself. MNIST contains 70,000 images, each of which
+            correspond to 784 pixels and 1 label. That means storing 70 thousand images in a Spreadsheet, requires a
+            minimum of \(70{\small,}000 \times (784+1) = 54{\small,}950{\small,}000\) cells---since each pixel and label
+            would require their own cell---far
+            above the 10,000,000 cell limit for Sheets files. In order to fit this restriction, I cut the dataset size
+            down to 5,000 images, which was further split into 4,000 training points, 500 validation points to
+            artificially test my model, and 500 test points as the final evaluation set. This brought the cell count for
+            storing the data to \(5{\small,}000 \times 785 = 3{\small,}925{\small,}000\) cells, leaving around 6 million
+            for training and testing.
+        </p>
+
+        <div class="image-container">
+            <div class="iframe-container" style="height: 300px;">
+                <iframe height="100%" width="100%" frameborder="0"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vReWKEQePfuLigCZ2YB3cgxNdmk9w_IPnQyrO3E81RBq_JL7K0XT2HKgvvo-7TUZDSTKhubywbxxHna/pubhtml?gid=568550814&amp;range=A1:ADD15&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
+                </iframe>
+            </div>
+
+            <p style="margin-top: 10px;">
+                Data for the first 15 images in the X_val Sheet.
+            </p>
+        </div>
+
+        <p>
+            In a similar vein, I need to initialize each of the 101,770 total parameter values, store them, then update
+            them for each pass through the data. Since training occurs in a loop, with weights being updated in each
+            iteration based on their previous values, I need to store each of the weight values for every loop
+            iteration, since it’s not possible to overwrite a cell in Sheets based on a transformation to itself, like
+            you could do with a value in Python. To accommodate this, I place each of the parameters for a given
+            training iteration in a single column with over 100,000 rows, and the next iteration’s weights in the column
+            to the right.
+        </p>
+
+        <p>
+            Finally, to ensure calculation was even possible, I needed to restrict the amount of data that could pass
+            through the network at one time. While it would have been ideal to use all the data at once to update
+            weights (allowing me to increase the number of times the model sees the training data), doing so for 4,000
+            training points hit Sheets’ calculation limit, so I restricted myself to passing 500 data points through the
+            network at once (called a batch). That amounts to 8 batches per epoch, where an epoch is a full pass through
+            the entire training set.
+        </p>
+
+        <hr>
+    </div>
+
+
+
+    <!-- <iframe width="500px" height="500px" frameborder="0"
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?ui=1&amp;widget=true&amp;headers=false&amp;"></iframe> -->
+
+</body>
+
+</html>
