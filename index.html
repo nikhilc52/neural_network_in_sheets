@@ -25,13 +25,13 @@
         <p>June 28, 2026</p>
     </div>
 
-    <div class="big-image-container">
+    <!-- <div class="big-image-container">
         <div class="iframe-container" style="height: 700px;">
             <iframe height="100%" width="100%" frameborder="0"
                 src="https://docs.google.com/spreadsheets/d/1NK-wLKCvSAkep09oZJvkwyFGUJjmwW1h7lIAR-iWYNM/edit?usp=sharing&amp;rm=full">
             </iframe>
         </div>
-    </div>
+    </div> -->
 
     <div class="essay">
         <h3>I trained a neural network entirely in Google Sheets</h3>
@@ -96,7 +96,7 @@
             push the frontier of what’s possible within Sheets.
         </p>
 
-        <p>
+        <p class="end-paragraph">
             My model is different: it is a fully-connected multi-layer perceptron (MLP), that has 784 input neurons (one
             for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
             ReLU
@@ -253,7 +253,8 @@ for t in range(epochs):
             </div>
 
             <p style="margin-top: 10px;">
-                Data for the first 15 images in the <span class="sheets">X_val</span> Sheet.
+                Data for the first 15 images in the <span class="sheets">X_val</span> Sheet, with each cell representing
+                a pixel.
             </p>
         </div>
 
@@ -277,14 +278,14 @@ for t in range(epochs):
         </p>
 
 
-        <div class="image-container">
+        <div class="image-container" style="margin-bottom: 0;">
             <div class="iframe-container" style="height: 600px;">
                 <iframe height="100%" width="100%" frameborder="0"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=443561833&amp;range=A1:J54&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 10px; margin-bottom: 0;">
                 The approximate setup for the training of 1 epoch, where all weights are initialized by the Sheets
                 function <span class="sheets">=RAND()*<span class="blue">2</span>*SQRT(<span class="blue">1</span>/<span
                         class="blue">784</span>)-SQRT(<span class="blue">1</span>/<span class="blue">784</span>)</span>,
@@ -449,8 +450,8 @@ for t in range(epochs):
             </div>
         </div>
 
-        <div class="sheets-block">
-            <div class="sheets">
+        <div class="sheets-block" style="margin-bottom: 0;">
+            <div class="sheets" style="margin-bottom: 0">
                 MAP(ARRAYFORMULA(MMULT(INDIRECT(<span class="green">"X_train!$A$"</span>&INDEX(SPLIT(<span
                     class="orange">C$5</span>,<span class="green">","</span>),<span class="blue">1</span>,<span
                     class="blue">1</span>)&<span class="green">":$ADD$"</span>&INDEX(SPLIT(<span
@@ -695,7 +696,7 @@ for t in range(epochs):
             </div>
 
             <p style="margin-top: 10px;">
-                Select values from the full, 7-epoch training process.
+                Select variables from the full, 7-epoch training process.
             </p>
         </div>
 
@@ -725,12 +726,12 @@ for t in range(epochs):
         </p>
 
         <div class="image-container">
-            <div class="iframe-container" style="height: 319px; border: none;">
-                <iframe height="100%" width="306px" frameborder="0" style=" border: 2px solid #dfdfdf;"
+            <div class="iframe-container" style="border: none;">
+                <iframe height="272px" width="306px" frameborder="0" style=" border: 2px solid #dfdfdf;"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=1902688859&amp;range=A1:L12&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
                 <p style="margin-top: 10px; width: 306px; text-align: left;">
-                    Caption.
+                    The confusion matrix for the finalized model on the 500 test points.
                 </p>
             </div>
         </div>
@@ -763,7 +764,8 @@ for t in range(epochs):
             </iframe>
         </div>
         <p style="margin-top: 10px; ">
-            Caption.
+            The test sheet, which shows a confusion matrix and accuracy metric for the model, alongside its prediction
+            for a particular visualized image from the test set.
         </p>
     </div>
 
@@ -771,6 +773,105 @@ for t in range(epochs):
         <p>
             Test index 30 allows for some insight into these errors:
         </p>
+
+        <div class="image-container">
+            <div class="iframe-container" style="height: 600px; border: none;">
+                <iframe height="100%" width="100%" frameborder="0" style=" border: 2px solid #dfdfdf;"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=654364207&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
+                </iframe>
+            </div>
+
+            <p style="margin-top: 10px;">
+                A visualization of test index 30.
+            </p>
+        </div>
+
+        <p>
+            This image is labeled as a 5, but could plausibly be a 0, with the bottom half of the image resembling a
+            full circle.
+        </p>
+
+        <p>
+            The same applies for test index 101, which is truly a 5, but predicted a 3:
+        </p>
+
+        <div class="image-container">
+            <div class="iframe-container" style="height: 600px; border: none;">
+                <iframe height="100%" width="100%" frameborder="0" style=" border: 2px solid #dfdfdf;"
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=1692311417&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
+                </iframe>
+            </div>
+
+            <p style="margin-top: 10px;">
+                A visualization of test index 101.
+            </p>
+        </div>
+
+        <p class="end-paragraph">
+            There’s some semblance of the shape of a 3, which is enough to push the model to make the incorrect
+            classification. Hence, although the 27.6% error rate is relatively high in comparison to what more complex
+            models are able to achieve, paradoxically, several of the errors that the model makes are somewhat
+            acceptable, given that they stem from understandable digit shape misreadings.
+        </p>
+
+        <h3>A Google Sheet is a metaphor</h3>
+
+        <p>
+            The final tab in the Spreadsheet is the <span class="sheets">meta</span> tab, which contains information
+            about the cell counts in each
+            of the Sheets within the file, and their sum. In total, there are 9,829,555 cells used in the
+            initialization, training, and testing of the neural network, with the most cells being allocated to the
+            training Sheets, both for storing the training data (3,136,000 cells) and actually running the training
+            loops (5,903,298 cells).
+        </p>
+
+        <p>
+            Poetically, this <span class="sheets">meta</span> tab serves as an apt meta-commentary on the process of
+            developing a neural network
+            entirely in Sheets. The tab was created solely to track how close I was getting to the 10 million cell limit
+            as I built the model, which was by far the most challenging aspect of completing this project, since it
+            placed a hard limit on its scope: restricting the dataset size, model complexity, and number training
+            iterations. It’s a similar story for each training pass, which had to be reduced to 500 points per
+            iteration, thereby pushing the training process to the 10 million cell limit, faster. Without these limits,
+            the model could have seen the entire MNIST database, added additional hidden layers, or, if nothing else,
+            continued to train until it reached its theoretical limit in its current state.
+        </p>
+
+        <p>
+            But the pain of dealing with those restrictions was countered by the joy of finding clever workarounds.
+            Figuring out how to safely store thousands of values into a single cell with minimal data loss to aid in
+            debugging was incredibly exciting, only because it solved a problem that wouldn’t have existed if not for
+            this project.
+        </p>
+
+        <p>
+            The same goes for translating NumPy functions over to Sheets. While the process itself was tedious,
+            understanding how to represent something like operations with boolean indexing in NumPy (filtering a dataset
+            by a condition, then performing an operation on that filtered subset) allowed me to think about matrices in
+            a different way---again, a way that existed only because I made it exist.
+        </p>
+
+        <p>
+            Above all else, successfully representing an accurate and in-depth neural network in a software as basic
+            Sheets, with only 29 different functions in the training process, illustrates that even the most seemingly
+            complex computer science phenomena can be distilled to basics--and successfully understood by <i>anyone</i>.
+        </p>
+
+        <hr>
+    </div>
+
+    <div class="footer">
+        <div>
+            <p>Code for this project can be found in my <a
+                    href="https://github.com/nikhilc52/neural_network_in_sheets">GitHub
+                    repository.</a></p>
+            <p>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
+                    Nikhil Chinchalkar.</a></p>
+        </div>
+        <div>
+            <p>June 28, 2026</p>
+            <a href="https://nikhilchinchalkar.com/" target="_blank"><img src="website/lotus.webp"></a>
+        </div>
     </div>
 </body>
 
