@@ -5,19 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Neural Network in Google Sheets</title>
+    <meta name="description" content="Building a Sheets-based computer vision model to recognize hand-written digits.">
+    <meta name="author" content="Nikhil Chinchalkar">
+    <!-- adobe fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/hso1shf.css">
+    <!-- math scripts -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <!-- python formatting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <!-- <link rel="icon" type="image/png" href="website/icon.png"> -->
+    <link rel="icon" type="image/png" href="website/thumb.svg">
     <link rel="stylesheet" href="website/styles.css">
 </head>
 
 <body>
     <div class="header">
         <h2>A Neural Network in Google Sheets</h2>
-        <h4>Building a Sheets-based computer vision model to recognize hand-written digits</h4>
+        <h4>Building a Sheets-based computer vision model to recognize hand-written digits.</h4>
         <hr style="margin: 15px auto;">
         <h3>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
                 Nikhil Chinchalkar</a></h3>
@@ -63,7 +68,7 @@
             </iframe>
         </div>
 
-        <p style="margin-top: 10px;">
+        <p style="margin-top: 8px;">
             Select images from the MNIST dataset, displayed in Google Sheets with conditional formatting.
         </p>
     </div>
@@ -134,14 +139,10 @@
         </p>
 
         <div class="image-container">
-            <div class="iframe-container" style="height: 600px;">
-                <iframe height="100%" width="100%" frameborder="0"
-                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=689800076&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
-                </iframe>
-            </div>
+            <img src="website/model.svg">
 
-            <p style="margin-top: 10px;">
-                A visualization of the model, with the first two layers at 1:16 scale. Each connection represents a
+            <p style="margin-top: 8px;">
+                A visualization of the model, where each connection represents a
                 multiplication of a weight and input value.
             </p>
         </div>
@@ -222,7 +223,7 @@ for t in range(epochs):
     train_acc = (train_preds == y).sum() / n
     print('Epoch:', t+1,'Train Accuracy:', train_acc, 'Train Loss:', loss)</code></pre>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 A slightly simplified version of the actual NumPy code for model training, adapted from Stanford’s
                 <a href="https://cs231n.github.io/neural-networks-case-study/" target="_blank">CS231n</a>.
             </p>
@@ -252,7 +253,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 Data for the first 15 images in the <span class="sheets">X_val</span> Sheet, with each cell representing
                 a pixel.
             </p>
@@ -285,7 +286,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px; margin-bottom: 0;">
+            <p style="margin-top: 8px; margin-bottom: 0;">
                 The approximate setup for the training of 1 epoch, where all weights are initialized by the Sheets
                 function <span class="sheets">=RAND()*<span class="blue">2</span>*SQRT(<span class="blue">1</span>/<span
                         class="blue">784</span>)-SQRT(<span class="blue">1</span>/<span class="blue">784</span>)</span>,
@@ -451,7 +452,7 @@ for t in range(epochs):
         </div>
 
         <div class="sheets-block" style="margin-bottom: 0;">
-            <div class="sheets" style="margin-bottom: 0">
+            <div class="sheets">
                 MAP(ARRAYFORMULA(MMULT(INDIRECT(<span class="green">"X_train!$A$"</span>&INDEX(SPLIT(<span
                     class="orange">C$5</span>,<span class="green">","</span>),<span class="blue">1</span>,<span
                     class="blue">1</span>)&<span class="green">":$ADD$"</span>&INDEX(SPLIT(<span
@@ -540,14 +541,14 @@ for t in range(epochs):
             per column), almost exactly equivalent to the original <span class="python">logits</span>.
         </p>
 
-        <div class="image-container">
+        <div class="image-container" style="margin-bottom: 0;">
             <div class="iframe-container" style="height: 600px;">
                 <iframe height="100%" width="100%" frameborder="0"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=893783190&amp;range=A1:J54&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px; margin-bottom: 0;">
                 The <span class="sheets">train</span> sheet after calculating the first instance of the flattened and
                 rounded <span class="python">logits</span> matrix.
             </p>
@@ -666,7 +667,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 A single complete epoch of training.
             </p>
         </div>
@@ -695,7 +696,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 Select variables from the full, 7-epoch training process.
             </p>
         </div>
@@ -730,7 +731,7 @@ for t in range(epochs):
                 <iframe height="272px" width="306px" frameborder="0" style=" border: 2px solid #dfdfdf;"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=1902688859&amp;range=A1:L12&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
-                <p style="margin-top: 10px; width: 306px; text-align: left;">
+                <p style="margin-top: 8px; width: 306px; text-align: left;">
                     The confusion matrix for the finalized model on the 500 test points.
                 </p>
             </div>
@@ -763,7 +764,7 @@ for t in range(epochs):
                 src="https://docs.google.com/spreadsheets/d/e/2PACX-1vReWKEQePfuLigCZ2YB3cgxNdmk9w_IPnQyrO3E81RBq_JL7K0XT2HKgvvo-7TUZDSTKhubywbxxHna/pubhtml?gid=768265353&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
             </iframe>
         </div>
-        <p style="margin-top: 10px; ">
+        <p style="margin-top: 8px; ">
             The test sheet, which shows a confusion matrix and accuracy metric for the model, alongside its prediction
             for a particular visualized image from the test set.
         </p>
@@ -781,7 +782,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 A visualization of test index 30.
             </p>
         </div>
@@ -802,7 +803,7 @@ for t in range(epochs):
                 </iframe>
             </div>
 
-            <p style="margin-top: 10px;">
+            <p style="margin-top: 8px;">
                 A visualization of test index 101.
             </p>
         </div>
@@ -863,7 +864,7 @@ for t in range(epochs):
     <div class="footer">
         <div>
             <p>Code for this project can be found in my <a
-                    href="https://github.com/nikhilc52/neural_network_in_sheets">GitHub
+                    href="https://github.com/nikhilc52/neural_network_in_sheets" target="_blank">GitHub
                     repository.</a></p>
             <p>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
                     Nikhil Chinchalkar.</a></p>
