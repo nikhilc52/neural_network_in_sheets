@@ -211,25 +211,26 @@
         <h3>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
                 Nikhil Chinchalkar</a></h3>
         <p>No Generative AI was used in the making of this project.</p>
-        <p>June 28, 2026</p>
+        <p>July 5, 2026</p>
     </div>
 
-    <!-- <div class="big-image-container">
+    <div class="big-image-container">
         <div class="iframe-container" style="height: 700px;">
             <iframe height="100%" width="100%" frameborder="0"
                 src="https://docs.google.com/spreadsheets/d/1NK-wLKCvSAkep09oZJvkwyFGUJjmwW1h7lIAR-iWYNM/edit?usp=sharing&amp;rm=full">
             </iframe>
         </div>
-    </div> -->
+    </div>
 
     <div class="essay">
-        <h3>I trained a neural network entirely in Google Sheets</h3>
+        <h3>I trained a neural network in Google Sheets</h3>
 
         <p class="end-paragraph">
             Some of the most ingenious ideas come from taking something that exists in one medium, and forcibly
             transforming it into another---like reproducing an expensive dish on a tight budget or walking around a city
             without a map. The same principle applies here: I'm taking something that exists on the frontier of data
-            science---neural networks---and recreating it in an environment one step above doing math by hand. Along the
+            science---<a href="https://en.wikipedia.org/wiki/Neural_network_(machine_learning)" target="_blank">neural
+                networks</a>---and recreating it in an environment one step above doing math by hand. Along the
             way, I'm forced to find creative workarounds to problems I didn't see coming, all the while strengthening my
             understanding of (and hopefully yours too) both Sheets and machine learning.
         </p>
@@ -237,7 +238,8 @@
 
         <h3>70,000 images, 614,656 pixels, and 29 years</h3>
 
-        <p>The model is fit on the MNIST dataset, consisting of 70,000 grayscale 28\(\times\)28 images of hand-written
+        <p>The model is fit on the <a href="https://en.wikipedia.org/wiki/MNIST_database" target="_blank">MNIST
+                dataset</a>, consisting of 70,000 grayscale 28\(\times\)28 images of hand-written
             digits (0
             through 9), each with a corresponding label, which my model tries to predict.
         </p>
@@ -260,14 +262,19 @@
     <div class="essay">
         <p>Training a classifier on this dataset is nothing new---MNIST is a staple in the
             world of computer vision, and
-            has been around since 1998. What's not new is the implementation.
+            has been around since the 1990s. What's not new is the implementation.
         </p>
 
         <p>
             Googling "training a neural network in Google Sheets" gets you a few results that appear to do something
             similar to what I'm doing, but differ in two key ways. One, I'm not importing the model from another source
-            (like PyTorch or TensorFlow), using any code within Sheets (like Google Apps Script), or Add-Ons (like
-            OpenSolver). Solutions that "train" neural networks in Sheets usually end up using one of these shortcuts,
+            (like <a href="https://pytorch.org/" target="_blank">PyTorch</a> or <a href="https://www.tensorflow.org/"
+                target="_blank">TensorFlow</a>), using any code within
+            Sheets (like <a href="https://developers.google.com/apps-script/overview" target="_blank">Google Apps
+                Script</a>), or
+            Add-Ons (like
+            <a href="https://opensolver.org/" target="_blank">OpenSolver</a>). Solutions that "train" neural networks in
+            Sheets usually end up using one of these shortcuts,
             which solve some of the fundamental problems with trying to train a model in Sheets, but take away from the
             point of creating the network in Sheets in the first place.
         </p>
@@ -286,17 +293,20 @@
         </p>
 
         <p class="end-paragraph">
-            My model is different: it is a fully-connected multi-layer perceptron (MLP), that has 784 input neurons (one
+            My model is different: it is a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
+                target="_blank">multi-layer perceptron</a> (MLP), that has 784 input neurons (one
             for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
-            ReLU
-            activation function, and finally 10 output nodes, one for each digit, that represent how likely the input is
+            <a href="https://en.wikipedia.org/wiki/Rectified_linear_unit" target="_blank">ReLU
+                activation function</a>, and finally 10 output nodes, one for each digit, that represent how likely the
+            input is
             a particular label. In an abbreviated form, this model is a 784-128-10 MLP.
         </p>
 
         <h3>One step forward, one step back</h3>
 
         <p>
-            As a high-level overview of what this model does, each hidden layer node (128 total), "learns" 784 weight
+            As a high-level overview of what this model does, each <a href="https://en.wikipedia.org/wiki/Hidden_layer"
+                target="_blank">hidden layer</a> node (128 total), "learns" 784 weight
             values, one for each of the 784 input nodes, or each grayscale pixel value in the original image. Each of
             those 784 weights are multiplied by their corresponding pixel and added together before a "learned" bias
             term is added to the sum. If it makes it easier to see in linear algebra terms, this can be represented by
@@ -319,7 +329,8 @@
             "learned" bias term. This entire process can be summarized with the formula \(\text{ReLU}(XW_1 + b_1)W_2 +
             b_2\), the
             result of which represents the 10 outputs (one for each digit) of the model, called the logits. To turn
-            those logits into probabilities, I use a softmax function.
+            those logits into probabilities, I use a <a href="https://en.wikipedia.org/wiki/Softmax_function"
+                target="_blank">softmax function</a>.
         </p>
 
         <div class="image-container">
@@ -341,9 +352,13 @@
         </p>
 
         <p>
-            This "learning" is called back propagation, and involves quantifying how wrong the forward pass was, then
+            This "learning" is called <a href="https://en.wikipedia.org/wiki/Backpropagation"
+                target="_blank">backpropagation</a>, and involves quantifying how wrong the forward pass was, then
             changing all of the weights, or parameters, to make the model not as wrong. The quantification is done via a
-            loss function, in this case cross entropy loss, and the changing of weights is done by taking the derivative
+            <a href="https://en.wikipedia.org/wiki/Loss_functions_for_classification" target="_blank">loss
+                function</a>---in this case <a
+                href="https://en.wikipedia.org/wiki/Cross-entropy#Cross-entropy_loss_function_and_logistic_regression"
+                target="_blank">cross-entropy loss</a>---and the changing of weights is done by taking the derivative
             of the loss function with respect to each parameter. The derivative shows how adjusting each parameter would
             change the loss, so to update weights, I just "step" each parameter in the direction that appears to lower
             the loss (or the "wrongness").
@@ -355,8 +370,9 @@
         </p>
 
         <p>
-            After writing out the math for the forward pass, and deriving the steps required for back propagation, I can
-            then translate that math into Python code, utilizing the NumPy package for each of the calculations.
+            After writing out the math for the forward pass, and deriving the steps required for backpropagation, I can
+            then translate that math into Python code, utilizing the <a href="https://numpy.org/"
+                target="_blank">NumPy</a> package for each of the calculations.
         </p>
 
         <div class="image-container">
@@ -424,9 +440,18 @@ for t in range(epochs):
             minimum of \(70{\small,}000 \times (784+1) = 54{\small,}950{\small,}000\) cells---since each pixel and label
             would require their own cell---far
             above the 10,000,000 cell limit for Sheets files. In order to fit this restriction, I cut the dataset size
-            down to 5,000 images, which was further split into 4,000 training points, 500 validation points to
-            artificially test my model, and 500 test points as the final evaluation set. This brought the cell count for
-            storing the data to \(5{\small,}000 \times 785 = 3{\small,}925{\small,}000\) cells, leaving around 6 million
+            down to 5,000 images, which was further split
+            into 4,000 <a
+                href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets#Training_data_set"
+                target="_blank">training points</a>, 500 <a
+                href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets#Validation_data_set"
+                target="_blank">validation points</a> to
+            artificially test my model, and 500 <a
+                href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets#Test_data_set"
+                target="_blank">test points</a> as the final evaluation set. This brought the cell count
+            for
+            storing the data to \(5{\small,}000 \times 785 = 3{\small,}925{\small,}000\) cells, leaving around 6
+            million
             for training and testing.
         </p>
 
@@ -481,7 +506,8 @@ for t in range(epochs):
         <hr>
 
         <p>
-            With the training structure in shape, I need to translate individual NumPy lines to Google Sheets functions.
+            With the training structure in shape, I need to translate individual NumPy lines to <a
+                href="https://support.google.com/docs/table/25273?hl=en" target="_blank">Google Sheets functions</a>.
             While lines involving scalar variables can be easily constructed by just putting the same number in a single
             cell, lines that perform calculations prove considerably more difficult. Take the following line that
             computes the output of the hidden layer in a forward pass of the data, for instance:
@@ -626,7 +652,7 @@ for t in range(epochs):
         </p>
 
         <p>
-            All of <i>that</i> represents a single, fairly simple line of code in NumPy, translated entirely to Sheets.
+            All of <i>that</i> represents a single, fairly simple line of code in NumPy, translated entirely to Sheets:
         </p>
 
         <div class="python-block">
@@ -634,6 +660,8 @@ for t in range(epochs):
                 hL = np.maximum(<span class="blue">0</span>, X_batch @ W1 + b1)
             </div>
         </div>
+
+        <!-- <p>Becomes</p> -->
 
         <div class="sheets-block" style="margin-bottom: 0;">
             <div class="sheets">
@@ -669,7 +697,7 @@ for t in range(epochs):
             have to store 5,000 values.
             While not
             too large of a quantity for a single backpropagation step, I'd need to store this for every batch, which
-            quickly pushes the Sheet to the 10 million cell restriction.
+            quickly pushes the file to the 10 million cell restriction.
         </p>
 
         <p>
@@ -696,7 +724,7 @@ for t in range(epochs):
             The above flattening and rounding for <span class="python">logits</span> takes place in cell <span
                 class="sheets">C9</span> in the
             <span class="sheets">train</span>
-            sheet, and looks like this:
+            Sheet, and looks like this:
         </p>
 
         <div class="sheets-block">
@@ -733,7 +761,7 @@ for t in range(epochs):
             </div>
 
             <p style="margin-top: 8px; margin-bottom: 0;">
-                The <span class="sheets">train</span> sheet after calculating the first instance of the flattened and
+                The <span class="sheets">train</span> Sheet after calculating the first instance of the flattened and
                 rounded <span class="python">logits</span> matrix.
             </p>
         </div>
@@ -758,50 +786,105 @@ for t in range(epochs):
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="sheets">SPLIT</span></td>
-                        <td>40 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3094136"
+                                    target="_blank">SPLIT</a></span></td>
+                        <td>40</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">INDEX</span></td>
-                        <td>32 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3098242"
+                                    target="_blank">INDEX</a></span></td>
+                        <td>32</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">ARRAYFORMULA</span>, <span class="sheets">LAMBDA</span></td>
-                        <td>21 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093275"
+                                    target="_blank">ARRAYFORMULA</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/12508718"
+                                    target="_blank">LAMBDA</a></span>
+                        </td>
+                        <td>21</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">TRANSPOSE</span></td>
-                        <td>17 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3094262"
+                                    target="_blank">TRANSPOSE</a></span></td>
+                        <td>17</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">MMULT</span>, <span class="sheets">MAP</span></td>
-                        <td>13 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3094292"
+                                    target="_blank">MMULT</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/12568985"
+                                    target="_blank">MAP</a></span>
+                        </td>
+                        <td>13</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">INDIRECT</span>, <span class="sheets">WRAPCOLS</span></td>
-                        <td>11 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093377"
+                                    target="_blank">INDIRECT</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/13184284"
+                                    target="_blank">WRAPCOLS</a></span></td>
+                        <td>11</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">WRAPROWS</span>, <span class="sheets">MAX</span></td>
-                        <td>8 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/13184285"
+                                    target="_blank">WRAPROWS</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3094013" target="_blank">MAX</a></span>
+                        </td>
+                        <td>8</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">IF</span></td>
-                        <td>7 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093364"
+                                    target="_blank">IF</a></span></td>
+                        <td>7</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">FLATTEN</span></td>
-                        <td>5 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/10307761"
+                                    target="_blank">FLATTEN</a></span></td>
+                        <td>5</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">BYROW</span>, <span class="sheets">SUM</span></td>
-                        <td>4 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/12570930"
+                                    target="_blank">BYROW</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093669" target="_blank">SUM</a></span>
+                        </td>
+                        <td>4</td>
                     </tr>
                     <tr>
-                        <td><span class="sheets">COLUMN</span>, <span class="sheets">CEILING</span>, <span
-                                class="sheets">JOIN</span>, <span class="sheets">EXP</span>, <span
-                                class="sheets">ROUND</span></td>
-                        <td>3 </td>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093373"
+                                    target="_blank">COLUMN</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093471"
+                                    target="_blank">CEILING</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3094077"
+                                    target="_blank">JOIN</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093411"
+                                    target="_blank">EXP</a></span>,
+                            <span class="sheets"><a href="https://support.google.com/docs/answer/3093440"
+                                    target="_blank">ROUND</a></span>
+                        </td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093497"
+                                    target="_blank">MOD</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093615"
+                                    target="_blank">AVERAGE</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/12569202"
+                                    target="_blank">MAKEARRAY</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/12571032"
+                                    target="_blank">BYCOL</a></span>,
+                            <span class="sheets"><a href="https://support.google.com/docs/answer/3093378"
+                                    target="_blank">MATCH</a></span>
+                        </td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sheets"><a href="https://support.google.com/docs/answer/3093487"
+                                    target="_blank">FLOOR</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3094017"
+                                    target="_blank">MIN</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093304"
+                                    target="_blank">IFERROR</a></span>, <span class="sheets"><a
+                                    href="https://support.google.com/docs/answer/3093495" target="_blank">LOG</a></span>
+                        </td>
+                        <td>1</td>
                     </tr>
                 </tbody>
             </table>
@@ -886,7 +969,9 @@ for t in range(epochs):
         </div>
 
         <p>
-            Though some ways away from state-of-the-art (some models achieve a less than 1% error rate), and while more
+            Though some ways away from state-of-the-art (<a
+                href="https://en.wikipedia.org/wiki/MNIST_database#Performance" target="_blank">some models</a> achieve
+            a less than 1% error rate), and while more
             epochs would certainly help increase accuracy, the result is more than 60 percentage points above what would
             be expected from randomly guessing (10% accuracy), so the model is certainly noteworthy.
         </p>
@@ -903,7 +988,8 @@ for t in range(epochs):
         <p>
             While 72.4% accuracy explains how well the model predicts digits, it doesn't explain what types of
             predictions the model actually makes, nor how the 27.6% error rate comes about. I can answer those questions
-            via an aptly named confusion matrix, which visualizes the model's predictions against the true values in a
+            via an aptly named <a href="https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">confusion
+                matrix</a>, which visualizes the model's predictions against the true values in a
             2D table. There isn't Python code to explicitly reference for this visual, but each of the values in the
             below output is based on a modified version of the test accuracy calculation. Specifically, I filter the
             test set to only include digits that match a particular label, then count how many times the model predicts
@@ -927,7 +1013,7 @@ for t in range(epochs):
             corresponding value for those coordinates is 2, this means that there are 2 occurrences of when the model
             predicted a digit was a 3, when it was really an 8. Conditional formatting shading the diagonal indicates
             that the model is correct most of the time---it's predicted digit matches the true digit. However, the chart
-            makes it clear that the model struggles the most with the digit "5," as indicated by the spread of predicted
+            makes it clear that the model struggles the most with the digit 5, as indicated by the spread of predicted
             values in its row. Only 2 predictions of 5 are correct (which happen to be the only 2 predictions of 5), and
             the model often confuses 5s with 3s and 0s. There's also some confusion with 4s and 9s, as well as 7s and
             9s.
@@ -935,7 +1021,9 @@ for t in range(epochs):
 
         <p>
             To understand why these errors might be happening, I can set up a visualizer for the image inputs to see
-            which types of images the model gets wrong. Since visualizing all 500 inputs would push the workbook beyond
+            both the types of images the model gets right, and the types it gets wrong. Since visualizing all 500 inputs
+            would force the Spreadsheet
+            beyond
             the 10 million cell limit, I can instead set up a cell to specify a single test index, then utilize <span
                 class="sheets">INDIRECT</span>
             to reference that cell and obtain the corresponding image, label, and model prediction.
@@ -949,26 +1037,28 @@ for t in range(epochs):
             </iframe>
         </div>
         <p style="margin-top: 8px; ">
-            The test sheet, which shows a confusion matrix and accuracy metric for the model, alongside its prediction
-            for a particular visualized image from the test set.
+            The <span class="sheets">test</span> Sheet, which shows a confusion matrix and accuracy metric for the
+            model, alongside its prediction
+            for a particular visualized image from the test set. In this case, the model correctly predicts that test
+            index
+            52 is a 7.
         </p>
     </div>
 
     <div class="essay">
         <p>
-            Test index 30 allows for some insight into these errors:
+            Test index 30 allows for some insight into the errors:
         </p>
 
         <div class="image-container">
-            <div class="iframe-container" style="height: 600px; border: none;">
-                <iframe height="100%" width="100%" frameborder="0" style=" border: 2px solid #dfdfdf;"
+            <div class="iframe-container" style="border: none;">
+                <iframe height="323px" width="345px" frameborder="0" style=" border: 2px solid #dfdfdf;"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=654364207&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
+                <p style="margin-top: 8px;">
+                    A visualization of test index 30.
+                </p>
             </div>
-
-            <p style="margin-top: 8px;">
-                A visualization of test index 30.
-            </p>
         </div>
 
         <p>
@@ -981,15 +1071,14 @@ for t in range(epochs):
         </p>
 
         <div class="image-container">
-            <div class="iframe-container" style="height: 600px; border: none;">
-                <iframe height="100%" width="100%" frameborder="0" style=" border: 2px solid #dfdfdf;"
+            <div class="iframe-container" style="border: none;">
+                <iframe height="323px" width="345px" frameborder="0" style=" border: 2px solid #dfdfdf;"
                     src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSENBh8ynCdXepVogfDwBTKlgRm3jjjArP67Aod_qpjTErT3G92_jWdB6Mpb_iChbz2f7Zr9m-GNuaH/pubhtml?gid=1692311417&amp;single=true&amp;widget=false&amp;headers=true&amp;chrome=false">
                 </iframe>
+                <p style="margin-top: 8px;">
+                    A visualization of test index 101.
+                </p>
             </div>
-
-            <p style="margin-top: 8px;">
-                A visualization of test index 101.
-            </p>
         </div>
 
         <p class="end-paragraph">
@@ -1047,17 +1136,13 @@ for t in range(epochs):
     </div>
 
     <div class="footer">
-        <div>
-            <p>Code for this project can be found in my <a href="https://github.com/nikhilc52/neural_network_in_sheets"
-                    target="_blank">GitHub
-                    repository.</a></p>
-            <p>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
-                    Nikhil Chinchalkar.</a></p>
-        </div>
-        <div>
-            <p>June 28, 2026</p>
-            <a href="https://nikhilchinchalkar.com/" target="_blank"><img src="website/lotus.webp"></a>
-        </div>
+        <p>Code for this project can be found in my <a href="https://github.com/nikhilc52/neural_network_in_sheets"
+                target="_blank">GitHub
+                repository.</a></p>
+        <p>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
+                Nikhil Chinchalkar.</a></p>
+        <p>July 5, 2026</p>
+        <a href="https://nikhilchinchalkar.com/" target="_blank"><img src="website/lotus.webp"></a>
     </div>
 </body>
 
