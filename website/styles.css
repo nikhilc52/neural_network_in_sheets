@@ -84,7 +84,7 @@ body {
     .row {
         overflow: hidden;
         display: grid;
-        grid-template-columns: 71px repeat(14, 152px);
+        grid-template-columns: 71px repeat(15, 152px);
     }
 }
 
@@ -266,6 +266,7 @@ hr {
 
     img {
         width: 30px;
+        margin-bottom: 8px;
     }
 
     p {
@@ -325,7 +326,7 @@ hr {
 .sheets {
     font-family: "Google Sans Mono", sans-serif;
     color: #000000;
-    word-break: break-word;
+    word-break:break-all;
 
     .blue {
         color: #1157ce;
@@ -350,4 +351,8 @@ hr {
     .turquoise {
         color: #11a9cc;
     }
+}
+
+.inline {
+    word-break: normal;
 }
