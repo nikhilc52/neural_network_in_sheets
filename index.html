@@ -232,7 +232,7 @@
         <h3>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
                 Nikhil Chinchalkar</a></h3>
         <p>No Generative AI was used in the making of this project.</p>
-        <p>July 5, 2026</p>
+        <p>July 6, 2026</p>
     </div>
 
     <div class="big-image-container" style="margin-bottom: 0px;">
@@ -310,22 +310,22 @@
             point of creating the network in Sheets in the first place.
         </p>
 
-        <p>
+        <!-- <p>
             You might wonder about potentially using Excel instead of Sheets. While this task could certainly be
-            performed in Excel, it is a much more powerful software. With the goal of this project being to train a
+            performed in Excel, it&rsquo;s a much more powerful software. With the goal of this project being to train a
             model in the most primitive of mediums, I opt to use Sheets.
-        </p>
+        </p> -->
 
         <p>
             Of the remaining online solutions that don&rsquo;t rely on third-party applications, most of them train
             models
             that are extremely simple, with relatively few neurons or training iterations, and solve problems that are
-            fairly basic. While it is true that these solutions do indeed train a model entirely in Sheets, they fail to
+            fairly basic. While it&rsquo;s true that these solutions do indeed train a model entirely in Sheets, they fail to
             push the frontier of what&rsquo;s possible within Sheets.
         </p>
 
         <p class="end-paragraph">
-            My model is different: it is a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
+            My model is different: it&rsquo;s a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
                 target="_blank">multi-layer perceptron</a> (MLP), that has 784 input neurons (one
             for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
             <a href="https://en.wikipedia.org/wiki/Rectified_linear_unit" target="_blank">ReLU
@@ -525,7 +525,7 @@ for t in range(epochs):
         </p>
 
         <p>
-            Finally, to ensure calculation is even possible, I need to restrict the amount of data that could pass
+            Finally, to ensure calculation is even possible, I need to restrict the amount of data that can pass
             through the network at one time. While it would be ideal to use all the data at once to update
             weights (allowing me to increase the number of times the model sees the training data), doing so for 4,000
             training points hits Sheets&rsquo; calculation limit, so I&rsquo;m limited to passing 500 data points
@@ -544,7 +544,7 @@ for t in range(epochs):
 
             <p style="margin-top: 8px; margin-bottom: 0;">
                 The approximate setup for the training of 1 epoch, where all weights are initialized by the Sheets
-                function <span class="sheets">=RAND()*<span class="blue">2</span>*SQRT(<span class="blue">1</span>/<span
+                formula <span class="sheets">RAND()*<span class="blue">2</span>*SQRT(<span class="blue">1</span>/<span
                         class="blue">784</span>)-SQRT(<span class="blue">1</span>/<span class="blue">784</span>)</span>,
                 matching <a href="https://docs.pytorch.org/docs/1.9.1/generated/torch.nn.Linear.html"
                     target="_blank">PyTorch implementation</a>.
@@ -627,7 +627,7 @@ for t in range(epochs):
 
         <p>
             Multiplying <span class="python">X_batch</span> with <span class="python">W1</span>, the weight matrix of
-            the hidden layer, forms the following Sheets formula:
+            the hidden layer, yields the following Sheets formula:
         </p>
 
         <div class="sheets-block">
@@ -690,7 +690,7 @@ for t in range(epochs):
         <p>
             Finally, the ReLU functionality, represented in code by <span class="python">np.maximum(0, X_batch @ W1 +
                 b1)</span> can be accomplished
-            in Sheets via:
+            in Sheets with:
         </p>
 
         <div class="sheets-block">
@@ -779,8 +779,8 @@ for t in range(epochs):
         </p>
 
         <p>
-            Rounding loses some information since I can no longer reconstruct the original matrix beyond the fifth
-            decimal point for each value, but from testing, the fifth decimal is enough for accurate results almost
+            Rounding loses some information---I can no longer reconstruct the original matrix beyond the fifth
+            decimal point for each value---but from testing, the fifth decimal is enough for accurate results almost
             exactly equivalent to their NumPy counterparts.
         </p>
 
@@ -993,7 +993,6 @@ for t in range(epochs):
                 class="python">loss</span>), which should
             generally decrease batch-to-batch---after all, minimizing the training loss is the entire objective of the
             neural network&rsquo;s training process. Complementary to the decrease in training loss is the increase in
-            both
             training accuracy, and more importantly, the validation set&rsquo;s accuracy. Since the validation set
             isn&rsquo;t used
             at all in training, it&rsquo;s a good estimate of how the model might work on unseen data. Again, while not
@@ -1021,7 +1020,7 @@ for t in range(epochs):
         </p>
 
         <p>
-            Remember the 10,000,000 cell limit? That comes back into play here. Since each of the batch columns contains
+            The 10,000,000 cell limit also comes back into play here. Since each of the batch columns contains
             over 100,000 rows and I&rsquo;m already using nearly 4 million cells to store the data, I can only run 7
             full
             epochs
@@ -1238,7 +1237,7 @@ for t in range(epochs):
                 repository.</a></p>
         <p>All content written, coded, and arranged by <a href="https://nikhilchinchalkar.com/" target="_blank">
                 Nikhil Chinchalkar.</a></p>
-        <p>July 5, 2026</p>
+        <p>July 6, 2026</p>
         <a href="https://nikhilchinchalkar.com/" target="_blank"><img src="website/lotus.webp"></a>
     </div>
 </body>
