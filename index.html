@@ -251,13 +251,13 @@
         <h3>I trained a neural network in Google Sheets</h3>
 
         <p class="end-paragraph">
-            Some of the most ingenious ideas come from taking something that exists in one medium, and forcibly
-            transforming it into another---like reproducing an expensive dish on a tight budget or walking around a city
-            without a map. The same principle applies here: I’m taking something that exists on the frontier of
+            Some of the most ingenious ideas come from taking something that exists in one medium, and
+            constraining it into another---like reproducing an expensive dish on a tight budget or walking around a city
+            without a map. The same principle applies here: I&rsquo;m taking something that exists on the frontier of
             data
             science---<a href="https://en.wikipedia.org/wiki/Neural_network_(machine_learning)" target="_blank">neural
                 networks</a>---and recreating it in an environment one step above doing math by hand. Along the
-            way, I’m forced to find creative workarounds to problems I didn’t see coming, all the while
+            way, I&rsquo;m forced to find creative workarounds to problems I didn&rsquo;t see coming, all the while
             strengthening my
             understanding of (and hopefully yours too) both Sheets and machine learning.
         </p>
@@ -290,20 +290,20 @@
         <p>Training a classifier on this dataset is nothing new---MNIST is a staple in the
             world of computer vision, and
             has been around <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf" target="_blank">since
-                1998</a>. What’s not new is the implementation.
+                1998</a>. What&rsquo;s not new is the implementation.
         </p>
 
         <p>
-            Googling “training a neural network in Google Sheets” gets you a few results that appear to do
+            Googling &ldquo;training a neural network in Google Sheets&rdquo; gets you a few results that appear to do
             something
-            similar to what I’m doing, but differ in two key ways. One, I’m not importing the model from
+            similar to what I&rsquo;m doing, but differ in two key ways. One, I&rsquo;m not importing the model from
             another source
             (like <a href="https://pytorch.org/" target="_blank">PyTorch</a> or <a href="https://www.tensorflow.org/"
                 target="_blank">TensorFlow</a>), using any code within
             Sheets (like <a href="https://developers.google.com/apps-script/overview" target="_blank">Google Apps
                 Script</a>), or
             Add-Ons (like
-            <a href="https://opensolver.org/" target="_blank">OpenSolver</a>). Solutions that “train” neural
+            <a href="https://opensolver.org/" target="_blank">OpenSolver</a>). Solutions that &ldquo;train&rdquo; neural
             networks in
             Sheets usually end up using one of these shortcuts,
             which solve some of the fundamental problems with trying to train a model in Sheets, but take away from the
@@ -312,20 +312,20 @@
 
         <!-- <p>
             You might wonder about potentially using Excel instead of Sheets. While this task could certainly be
-            performed in Excel, it’s a much more powerful software. With the goal of this project being to train a
+            performed in Excel, it&rsquo;s a much more powerful software. With the goal of this project being to train a
             model in the most primitive of mediums, I opt to use Sheets.
         </p> -->
 
         <p>
-            Of the remaining online solutions that don’t rely on third-party applications, most of them train
+            Of the remaining online solutions that don&rsquo;t rely on third-party applications, most of them train
             models
             that are extremely simple, with relatively few neurons or training iterations, and solve problems that are
-            fairly basic. While it’s true that these solutions do indeed train a model entirely in Sheets, they fail to
-            push the frontier of what’s possible within Sheets.
+            fairly basic. While it&rsquo;s true that these solutions do indeed train a model entirely in Sheets, they fail to
+            push the frontier of what&rsquo;s possible within Sheets.
         </p>
 
         <p class="end-paragraph">
-            My model is different: it’s a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
+            My model is different: it&rsquo;s a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
                 target="_blank">multi-layer perceptron</a> (MLP), that has 784 input neurons (one
             for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
             <a href="https://en.wikipedia.org/wiki/Rectified_linear_unit" target="_blank">ReLU
@@ -338,10 +338,10 @@
 
         <p>
             As a high-level overview of what this model does, each <a href="https://en.wikipedia.org/wiki/Hidden_layer"
-                target="_blank">hidden layer</a> node (128 total), “learns” 784 weight
+                target="_blank">hidden layer</a> node (128 total), &ldquo;learns&rdquo; 784 weight
             values, one for each of the 784 input nodes, or each grayscale pixel value in the original image. Each of
             those 784 weights are multiplied by their corresponding pixel and added together before a
-            “learned” bias
+            &ldquo;learned&rdquo; bias
             term is added to the sum. If it makes it easier to see in linear algebra terms, this can be represented by
             the formula \(XW_1 + b_1\), where X is a singular input image matrix (size 1\(\times\)784), \(W_1\) is the
             weight matrix
@@ -357,10 +357,10 @@
 
         <p>
             The final output layer (10 nodes) repeats this operation, but without the ReLU activation function at the
-            end. That is, each of the 10 nodes “learns” 128 weight values, one for each of the 128 hidden
+            end. That is, each of the 10 nodes &ldquo;learns&rdquo; 128 weight values, one for each of the 128 hidden
             layer outputs,
             and multiplies those weight values pairwise with the corresponding hidden layer results, before adding in a
-            “learned” bias term. This entire process can be summarized with the formula \(\text{ReLU}(XW_1 +
+            &ldquo;learned&rdquo; bias term. This entire process can be summarized with the formula \(\text{ReLU}(XW_1 +
             b_1)W_2 +
             b_2\), the
             result of which represents the 10 outputs (one for each digit) of the model, called the logits. To turn
@@ -378,20 +378,20 @@
         </div>
 
         <p>
-            Up to this point, these calculations are what’s known as a “forward pass,” which just
+            Up to this point, these calculations are what&rsquo;s known as a &ldquo;forward pass,&rdquo; which just
             calculates the result
             of the model. A forward pass can perform the task of classification by taking in an image and giving a
             probability of
-            each digit, but that probability distribution isn’t necessarily good. For the model to
-            “learn,” it needs to
-            train each of the “learnable” weight values (of which there are \(784\times 128+128+128 \times
+            each digit, but that probability distribution isn&rsquo;t necessarily good. For the model to
+            &ldquo;learn,&rdquo; it needs to
+            train each of the &ldquo;learnable&rdquo; weight values (of which there are \(784\times 128+128+128 \times
             10+10 =
             101{\small,}770\)) to use in
             the forward pass calculation.
         </p>
 
         <p>
-            This “learning” is called <a href="https://en.wikipedia.org/wiki/Backpropagation"
+            This &ldquo;learning&rdquo; is called <a href="https://en.wikipedia.org/wiki/Backpropagation"
                 target="_blank">backpropagation</a>, and involves quantifying how wrong the forward pass was, then
             changing all of the weights, or parameters, to make the model not <i>as wrong</i>. The quantification is
             done via a
@@ -400,13 +400,13 @@
                 href="https://en.wikipedia.org/wiki/Cross-entropy#Cross-entropy_loss_function_and_logistic_regression"
                 target="_blank">cross-entropy loss</a>---and the changing of weights is done by taking the derivative
             of the loss function with respect to each parameter. The derivative shows how adjusting each parameter would
-            change the loss, so to update weights, I just “step” each parameter in the direction that
+            change the loss, so to update weights, I just &ldquo;step&rdquo; each parameter in the direction that
             appears to lower
-            the loss (or the “wrongness”).
+            the loss (or the &ldquo;wrongness&rdquo;).
         </p>
 
         <p>
-            While the math behind the network isn’t too important for understanding the purpose of this project,
+            While the math behind the network isn&rsquo;t too important for understanding the purpose of this project,
             it
             helps you appreciate the number of computations that underlie such a classifier.
         </p>
@@ -468,12 +468,12 @@ for t in range(epochs):
             <p style="margin-top: 8px;">
                 A slightly simplified version of the <a
                     href="https://github.com/nikhilc52/neural_network_in_sheets/blob/master/model/model.ipynb"
-                    target="_blank">actual NumPy code</a> for model training, adapted from Stanford’s
+                    target="_blank">actual NumPy code</a> for model training, adapted from Stanford&rsquo;s
                 <a href="https://cs231n.github.io/neural-networks-case-study/" target="_blank">CS231n</a>.
             </p>
         </div>
 
-        <p class="end-paragraph">From here, all that’s left to do is convert each line of NumPy into cells in
+        <p class="end-paragraph">From here, all that&rsquo;s left to do is convert each line of NumPy into cells in
             Sheets.
         </p>
 
@@ -519,7 +519,7 @@ for t in range(epochs):
             them for each pass through the data. Since training occurs in a loop, with weights being updated in each
             iteration based on their previous values, I have to store each of the weight values for <i>every</i> loop
             iteration. To accommodate this, I place each of the parameters for a given
-            training iteration in a single column with over 100,000 rows, and the next iteration’s weights in the
+            training iteration in a single column with over 100,000 rows, and the next iteration&rsquo;s weights in the
             column
             to the right.
         </p>
@@ -528,7 +528,7 @@ for t in range(epochs):
             Finally, to ensure calculation is even possible, I need to restrict the amount of data that can pass
             through the network at one time. While it would be ideal to use all the data at once to update
             weights (allowing me to increase the number of times the model sees the training data), doing so for 4,000
-            training points hits Sheets’ calculation limit, so I’m limited to passing 500 data points
+            training points hits Sheets&rsquo; calculation limit, so I&rsquo;m constrained to passing 500 data points
             through the
             network at once (called a batch). That amounts to 8 batches per epoch, where an epoch is a full pass through
             the entire training set.
@@ -583,9 +583,9 @@ for t in range(epochs):
         </div>
 
         <p>
-            Let’s work backwards to understand why. First, the batch indices are given in cell <span
+            Let&rsquo;s work backwards to understand why. First, the batch indices are given in cell <span
                 class="sheets inline"><span class="orange">C5</span></span>, in the format
-            “1,500,” meaning the subset of training points to use
+            &ldquo;1,500,&rdquo; meaning the subset of training points to use
             for this batch begins at index 1 and ends at index 500. <span class="sheets">INDEX(SPLIT(<span
                     class="orange">C$5</span>,<span class="green">","</span>),<span class="blue">1</span>,<span
                     class="blue">1</span>)</span> splits the
@@ -595,7 +595,7 @@ for t in range(epochs):
             value of the result at
             column <span class="sheets"><span class="blue">1</span></span>, row <span class="sheets"><span
                     class="blue">1</span></span>, which
-            corresponds to “1” in this case. Note that the <span class="sheets"><span
+            corresponds to &ldquo;1&rdquo; in this case. Note that the <span class="sheets"><span
                     class="orange">$</span></span>
             just makes the cell reference to <span class="sheets inline"><span class="orange">C5</span></span> always
             stay at
@@ -605,7 +605,7 @@ for t in range(epochs):
             over
             to the column to the right. The same logic applies for the almost-duplicate second use case of the <span
                 class="sheets inline">INDEX</span> and
-            <span class="sheets inline">SPLIT</span> formula, which obtains “500” from <span
+            <span class="sheets inline">SPLIT</span> formula, which obtains &ldquo;500&rdquo; from <span
                 class="sheets inline"><span class="orange">C5</span></span>.
         </p>
 
@@ -703,10 +703,10 @@ for t in range(epochs):
             Which <span class="sheets inline">MAP</span>s a <span class="sheets inline">LAMBDA</span> function, or a
             function applied
             to each value in the given matrix. This <span class="sheets inline">LAMBDA</span> is the
-            aforementioned ReLU, which just takes the “cell” and returns the <span
+            aforementioned ReLU, which just takes the &ldquo;cell&rdquo; and returns the <span
                 class="sheets inline">MAX</span>
             value
-            between the “cell” itself and <span class="sheets"><span class="blue">0</span></span>.
+            between the &ldquo;cell&rdquo; itself and <span class="sheets"><span class="blue">0</span></span>.
             After evaluating this part of the function, the Sheets result is equivalent to <span
                 class="python">hL</span>, the hidden layer.
         </p>
@@ -739,7 +739,7 @@ for t in range(epochs):
 
         <p>
             As you can imagine, debugging is particularly frustrating. Since whitespace and parameter names are not
-            permitted in Sheets formulas, I’m forced to interpret multiple lines of concise NumPy code as one
+            permitted in Sheets formulas, I&rsquo;m forced to interpret multiple lines of concise NumPy code as one
             giant
             string of formulas. Plus, since later NumPy lines use previously calculated values, I have to keep building
             from the same Sheets formulas as I progress through translating the code, rather than starting new each
@@ -747,17 +747,17 @@ for t in range(epochs):
         </p>
 
         <p>
-            There’s one helpful trick to ease in interpretability, however. I could store these intermediate
+            There&rsquo;s one helpful trick to ease in interpretability, however. I could store these intermediate
             values
             (like <span class="python">logits</span>, for example) in cells within the Sheet, then reference those cells
             whenever I need to make a
             calculation involving <span class="python">logits</span>. The only issue with this approach is the
             intermediate results are typically
             too large to store: the <span class="python">logits</span> matrix is of size \(500\times 10\), meaning
-            I’d
+            I&rsquo;d
             have to store 5,000 values.
             While not
-            too large of a quantity for a single backpropagation step, I’d need to store this for every batch,
+            too large of a quantity for a single backpropagation step, I&rsquo;d need to store this for every batch,
             which
             quickly pushes the file to the 10 million cell restriction.
         </p>
@@ -766,13 +766,13 @@ for t in range(epochs):
             To limit the amount of space storing intermediate values takes up, I could instead push each of those 5,000
             numbers into a single cell by flattening the matrix and concatenating all of the values together, separated
             by commas, to form a 5,000 long comma-separated list. Since I know the dimensions of the original matrix, I
-            can perfectly reconstruct it from the concatenated result, by simply “unflattening” the list.
+            can perfectly reconstruct it from the concatenated result, by simply &ldquo;unflattening&rdquo; the list.
             The one caveat
             to this workaround is a 50,000 character limit on strings within a cell in Sheets, meaning every value in
             the list must be associated with about 9 characters. Rounding the <span class="python">logits</span> to 5
             digits does just that---since
-            most of the <span class="python">logits</span> are between -1 and 1, there’s one character for the
-            one’s
+            most of the <span class="python">logits</span> are between -1 and 1, there&rsquo;s one character for the
+            one&rsquo;s
             place, one for the decimal,
             five for the fractional part, one for the comma, and potentially one for a negative sign, yielding about 9
             characters for each of the 5,000 numbers.
@@ -837,7 +837,7 @@ for t in range(epochs):
         <hr>
 
         <p>
-            With the trick of storing intermediate values in hand, there’s some ease in translating the rest of
+            With the trick of storing intermediate values in hand, there&rsquo;s some ease in translating the rest of
             the
             NumPy lines. For the most part, they are all matrix operations, and built up from a subset of Sheets
             formulas. Completing a singular batch of training, or translating each of the training loop lines of NumPy,
@@ -973,7 +973,7 @@ for t in range(epochs):
 
         <p class="end-paragraph">
             The benefit of having relatively few functions used, at least compared to the total function calls, is that
-            each calculation is fairly simple to interpret, as it’s built off the same few steps (just repeated
+            each calculation is fairly simple to interpret, as it&rsquo;s built off the same few steps (just repeated
             several
             times).
         </p>
@@ -983,7 +983,7 @@ for t in range(epochs):
         <p>
             After filling in cells for a single batch of training, continuing to train for further iterations is simply
             a matter of copy-pasting formulas into an adjacent column. Since the training structure is set up to
-            maintain references to certain cells by relative positioning, properly written formulas needn’t be
+            maintain references to certain cells by relative positioning, properly written formulas needn&rsquo;t be
             changed
             as training pushes forward, saving a lot of manual effort.
         </p>
@@ -992,10 +992,10 @@ for t in range(epochs):
             The key metric to look at to ensure correctness in implementation is the training loss (<span
                 class="python">loss</span>), which should
             generally decrease batch-to-batch---after all, minimizing the training loss is the entire objective of the
-            neural network’s training process. Complementary to the decrease in training loss is the increase in
-            training accuracy, and more importantly, the validation set’s accuracy. Since the validation set
-            isn’t used
-            at all in training, it’s a good estimate of how the model might work on unseen data. Again, while not
+            neural network&rsquo;s training process. Complementary to the decrease in training loss is the increase in
+            training accuracy, and more importantly, the validation set&rsquo;s accuracy. Since the validation set
+            isn&rsquo;t used
+            at all in training, it&rsquo;s a good estimate of how the model might work on unseen data. Again, while not
             necessarily true of each batch, seeing both of these metrics trend in their desired directions indicates my
             formulas are doing what they are supposed to.
         </p>
@@ -1013,7 +1013,7 @@ for t in range(epochs):
         </div>
 
         <p>
-            Note that there’s a significant lag when adding each additional training batch, as millions of
+            Note that there&rsquo;s a significant lag when adding each additional training batch, as millions of
             calculations
             need to occur for a training loop to end. In order to prevent crashes, I only add a few batches at a time,
             which typically take less than a minute to fully calculate, then add more when they are completely done.
@@ -1021,12 +1021,12 @@ for t in range(epochs):
 
         <p>
             The 10,000,000 cell limit also comes back into play here. Since each of the batch columns contains
-            over 100,000 rows and I’m already using nearly 4 million cells to store the data, I can only run 7
+            over 100,000 rows and I&rsquo;m already using nearly 4 million cells to store the data, I can only run 7
             full
             epochs
             (8 batches per epoch, so 7 full epochs means \(8\times 7\times 101{\small,}770 = 5{\small,}699{\small,}120\)
             cells) before running out of computing
-            <i>space</i>. After pushing the Spreadsheet to its limit, I’m left with a train accuracy of 75.4% and
+            <i>space</i>. After pushing the Spreadsheet to its limit, I&rsquo;m left with a train accuracy of 75.4% and
             a
             validation
             accuracy of 73.8%.
@@ -1062,11 +1062,11 @@ for t in range(epochs):
         </p>
 
         <p>
-            While 72.4% accuracy explains how well the model predicts digits, it doesn’t explain what types of
+            While 72.4% accuracy explains how well the model predicts digits, it doesn&rsquo;t explain what types of
             predictions the model actually makes, nor how the 27.6% error rate comes about. I can answer those questions
             via an aptly named <a href="https://en.wikipedia.org/wiki/Confusion_matrix" target="_blank">confusion
-                matrix</a>, which visualizes the model’s predictions against the true values in a
-            2D table. There isn’t Python code to explicitly reference for this visual, but each of the values in
+                matrix</a>, which visualizes the model&rsquo;s predictions against the true values in a
+            2D table. There isn&rsquo;t Python code to explicitly reference for this visual, but each of the values in
             the
             below output is based on a modified version of the test accuracy calculation. Specifically, I filter the
             test set to only include digits that match a particular label, then count how many times the model predicts
@@ -1090,11 +1090,11 @@ for t in range(epochs):
             <span class="sheets inline">true_label</span> value 8. Since the
             corresponding value for those coordinates is 2, this means that there are 2 occurrences of when the model
             predicted a digit was a 3, when it was really an 8. Conditional formatting shading the diagonal indicates
-            that the model is correct most of the time---it’s predicted digit matches the true digit. However, the
+            that the model is correct most of the time---it&rsquo;s predicted digit matches the true digit. However, the
             chart
             makes it clear that the model struggles the most with the digit 5, as indicated by the spread of predicted
             values in its row. Only 2 predictions of 5 are correct (which happen to be the only 2 predictions of 5), and
-            the model often confuses 5s with 3s and 0s. There’s also some confusion with 4s and 9s, as well as 7s
+            the model often confuses 5s with 3s and 0s. There&rsquo;s also some confusion with 4s and 9s, as well as 7s
             and
             9s.
         </p>
@@ -1163,7 +1163,7 @@ for t in range(epochs):
         </div>
 
         <p class="end-paragraph">
-            There’s some semblance of the shape of a 3, which is enough to push the model to make the incorrect
+            There&rsquo;s some semblance of the shape of a 3, which is enough to push the model to make the incorrect
             classification. Hence, although the 27.6% error rate is relatively high in comparison to what more complex
             models are able to achieve, paradoxically, several of the errors that the model makes are somewhat
             acceptable, given that they stem from understandable digit shape misreadings.
@@ -1198,7 +1198,7 @@ for t in range(epochs):
             entirely in Sheets. The tab was created solely to track how close I was getting to the 10 million cell limit
             as I built the model, which was by far the most challenging aspect of completing this project, since it
             placed a hard limit on its scope: restricting the dataset size, model complexity, and number training
-            iterations. It’s a similar story for each training pass, which had to be reduced to 500 points per
+            iterations. It&rsquo;s a similar story for each training pass, which had to be reduced to 500 points per
             iteration to mitigate high computation cost, thereby pushing the training process to the 10 million cell
             limit, faster. Without these limits,
             the model could have seen the entire MNIST database, added additional hidden layers, or, if nothing else,
@@ -1208,7 +1208,7 @@ for t in range(epochs):
         <p>
             But the pain of dealing with those restrictions was countered by the joy of finding clever workarounds.
             Figuring out how to safely store thousands of values into a single cell to aid in
-            debugging was incredibly exciting, only because it solved a problem that wouldn’t have existed if not
+            debugging was incredibly exciting, only because it solved a problem that wouldn&rsquo;t have existed if not
             for
             this project.
         </p>
