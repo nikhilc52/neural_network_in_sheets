@@ -17,6 +17,10 @@
     <title>A Neural Network in Google Sheets</title>
     <meta name="description" content="Building a Sheets-based computer vision model to recognize hand-written digits.">
     <meta name="author" content="Nikhil Chinchalkar">
+    <meta property="og:title" content="A Neural Network in Google Sheets" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nikhilc52.github.io/neural_network_in_sheets/" />
+    <meta property="og:image" content="https://nikhilc52.github.io/neural_network_in_sheets/website/preview.png" />
     <!-- adobe fonts -->
     <link rel="stylesheet" href="https://use.typekit.net/hso1shf.css">
     <!-- google sans font -->
@@ -320,13 +324,15 @@
             Of the remaining online solutions that don&rsquo;t rely on third-party applications, most of them train
             models
             that are extremely simple, with relatively few neurons or training iterations, and solve problems that are
-            fairly basic. While it&rsquo;s true that these solutions do indeed train a model entirely in Sheets, they fail to
+            fairly basic. While it&rsquo;s true that these solutions do indeed train a model entirely in Sheets, they
+            fail to
             push the frontier of what&rsquo;s possible within Sheets.
         </p>
 
         <p class="end-paragraph">
-            My model is different: it&rsquo;s a fully-connected <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron"
-                target="_blank">multi-layer perceptron</a> (MLP), that has 784 input neurons (one
+            My model is different: it&rsquo;s a fully-connected <a
+                href="https://en.wikipedia.org/wiki/Multilayer_perceptron" target="_blank">multi-layer perceptron</a>
+            (MLP), that has 784 input neurons (one
             for each of the pixel values in the 28\(\times\)28 MNIST image), followed by a 128 neuron hidden layer, a
             <a href="https://en.wikipedia.org/wiki/Rectified_linear_unit" target="_blank">ReLU
                 activation function</a>, and finally 10 output nodes, one for each digit, that represent how likely the
